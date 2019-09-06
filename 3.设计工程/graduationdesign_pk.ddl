@@ -1,0 +1,2 @@
+ALTER TABLE `User` ADD PRIMARY KEY (phone);
+ALTER TABLE ImagePath ADD PRIMARY KEY (userID);

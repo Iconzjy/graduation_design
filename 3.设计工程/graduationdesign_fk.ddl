@@ -1,0 +1,2 @@
+ALTER TABLE ImagePath DROP FOREIGN KEY 用户和自身图片路径;
+ALTER TABLE ImagePath ADD CONSTRAINT 用户和自身图片路径 FOREIGN KEY (userID) REFERENCES `User` (phone);
