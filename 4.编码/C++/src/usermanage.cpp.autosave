@@ -1,0 +1,13 @@
+#include "usermanage.h"
+
+UserManage::UserManage(DBPool* const db, std::string aPhone)
+    :_conn(db->getDBConn())
+{
+    this->_user = new User();
+    SQLQuery::getPersonInfo(_conn, this->_user, aPhone);
+}
+
+UserManage::~UserManage()
+{
+    delete this->_user;
+}

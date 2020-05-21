@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>云相册管家</title>
+
+    <!-- Bootstrap core CSS -->
+   
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="dist/css/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/navmenu-reveal.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/full-slider.css" rel="stylesheet">
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="mySelfFunc.js"></script>
+    <script type="text/javascript">
+        function findPics() {
+            var typestr=document.getElementById("findType").value
+            urlRoot="https://www.zjyxxn.cn/api/repsendpicnamebycustom?type="+typestr;
+            $.ajax({
+                type:"get",
+                url: urlRoot,
+                dataType:'json',
+                success:function (data) {
+                    console.debug(data)
+                    $("#gallery-content-center").empty()
+                    piclist=""
+                    for (var v in data){
+                        piclist="<div class=\"blog-post\">\n" +
+                            "          <img class=\"featured\" src=\"https://www.zjyxxn.cn/api/repsendpicdata?pic=" +data[v] + "\" width=\"300\" alt=\"Background\">\n" +
+                            "          <p class=\"blog-post-sub-title text-center\">"+ data[v] +" </p>\n" +
+                            "          <span class=\"title-divider\"></span>\n" +
+                            "        </div>"
+                        console.debug(piclist)
+                        $("#userOwnType").append(piclist)
+                    }
+                },
+            })
+        }
+    </script>
+  </head>
+
+<script type="text/css">
+    input[type=search] {
+        border:1px solid #A9A9A9;
+        border-radius:5px;
+        padding:5px 0 5px 8px;
+    }
+    ::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color:#3385FF;
+    }
+    :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color:#3385FF;
+    }
+    ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color:#3385FF;
+    }
+    :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color:#3385FF;
+    }
+    input[type=search]:hover {
+        border:1px solid #00C5FF;
+    }
+    input[type=search]:focus {
+        border:1px solid #3385FF;
+        box-shadow:0 0 2px #3385FF;
+    }
+</script>
+  <body onload="userName()">
+ <div class="bar">
+    <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+    </button>
+  </div>
+ <!--这个部分是左边功能区域-->
+ <div class="navmenu navmenu-default navmenu-fixed-left">
+     <ul class="nav navmenu-nav">
+         <li><a href="index.html">主页</a></li>
+         <li><a href="personalPhotoAlbum.html">个人相册</a></li>
+         <li><a href="dynamicAlbum.html">动态相册</a></li>
+         <li><a href="custom.html">自定义相册</a></li>
+         <li><a href="contact.html">联系我们</a></li>
+         <li><a href="personInfo.html">个人信息</a></li>
+         <li><a href="recycleBin.html">回收站</a></li>
+         <li id="advanPart" href="javascript:void(0)" onclick="isVip()"><a>高级功能部分</a></li>
+
+         <li><a href="../login.html">登录</a></li>
+         <li><a onclick="logOff()">登出</a></li>
+     </ul>
+
+     <a id="welcome-user" class="navmenu-brand" href="#">
+     </a>
+
+     <div class="social">
+         <a href="#"><i class="fa fa-twitter"></i></a>
+         <a href="#"><i class="fa fa-facebook"></i></a>
+         <a href="#"><i class="fa fa-instagram"></i></a>
+         <a href="#"><i class="fa fa-pinterest-p"></i></a>
+         <a href="#"><i class="fa fa-google-plus"></i></a>
+         <a href="#"><i class="fa fa-skype"></i></a>
+     </div>
+     <div class="copyright-text">
+         ©Copyright  可爱一只小小鸟
+         <br>
+         <a href="http://www.zjyxxn.cn" target="_blank">云相册管家</a>
+         <br>
+         <br>
+     </div>
+ </div>
+ <!--功能向导区域结束-->
+
+      
+
+    <div class="canvas col-md-12">
+      <div class=" col-md-3 col-sm-12 col-xs-12 page-container sidebar visible-md visible-lg">
+        <div class="home-page-header">
+          <div class="post-category">
+            <h4 class="sidebar-title">搜索框</h4>
+              <div class="search">
+                  <input id="findType" type="search" placeholder="请输入搜索的内容">
+                  <input type="submit" value="搜索" class="input_sub" onclick="findPics()">
+              </div>
+          </div>
+
+
+         <div class="blog-post">
+         <h4 class="left-side sidebar-title">说明</h4>
+         <p class="blog-text">
+            这个页面用户可以自定义搜索想要包含某件事物的图片,支持的类别如下：
+             person、
+             bicycle、
+             car、
+             motorcycle、
+             airplane、
+             bus、
+             train、
+             truck、
+             boat、
+             traffic light、
+             fire hydrant、
+             stop sign、
+             parking meter、
+             bench、
+             bird、
+             cat、
+             dog、
+             horse、
+             sheep、
+             cow、
+             elephant、
+             bear、
+             zebra、
+             giraffe、
+             backpack、
+             umbrella、
+             handbag、
+             tie、
+             suitcase、
+             frisbee、
+             skis、
+             snowboard、
+             sports ball、
+             kite、
+             baseball bat、
+             baseball glove、
+             skateboard、
+             surfboard、
+             tennis racket、
+             bottle、
+             wine glass、
+             cup、
+             fork、
+             knife、
+             spoon、
+             bowl、
+             banana、
+             apple、
+             sandwich、
+             orange、
+             broccoli、
+             carrot、
+             hot dog、
+             pizza、
+             donut、
+             cake、
+             chair、
+             couch、
+             potted plant、
+             bed、
+             dining table、
+             toilet、
+             tv、
+             laptop、
+             mouse、
+             remote、
+             keyboard、
+             cell phone、
+             microwave、
+             oven、
+             toaster、
+             sink、
+             refrigerator、
+             book、
+             clock、
+             vase、
+             scissors、
+             teddy bear、
+             hair drier、
+             toothbrush、
+          </p>
+        </div>
+        </div>
+      </div><!-- /.container -->
+
+      <div id="userOwnType" class="blog col-md-8 col-md-offset-1  col-sm-12 col-xs-12">
+
+<!--        <div class="blog-post">-->
+<!--          <img class="featured" src="img/bg2.jpg" width="300" alt="Background">-->
+<!--          <p class="blog-post-sub-title text-center"> Travel </p>-->
+<!--          <a href="single.html"><h3 class="blog-post-title ">FRAGMENTS OF ICELAND</h3></a>-->
+<!--          <span class="title-divider"></span>-->
+<!--          <p class="blog-text">-->
+<!--            You know, being a test pilot isn't always the healthiest business in the world.-->
+<!--            That's one small step for [a] man, one giant leap for mankind.-->
+
+<!--          </p>-->
+<!--        </div>-->
+      </div>
+
+<!--      <div class=" col-md-3 col-sm-12 col-xs-12 container page-container sidebar visible-xs visible-sm">-->
+<!--        <div class="home-page-header1">-->
+<!--          <div class="post-category">-->
+<!--            <h4 class="sidebar-title">Categories</h4>-->
+<!--            <ul class="categories-link">-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Sports</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Nature</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Wild</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Travel</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Food </a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--          <div class="post-category">-->
+<!--            <h4 class="sidebar-title">Recent Blog Posts</h4>-->
+<!--            <ul class="categories-link">-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Sports</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Nature</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Wild</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Travel</a> </li>-->
+<!--              <li class="category-item"><i class="fa fa-angle-right"></i><a href = "#" >Food</a> </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--         <div class="blog-post">-->
+<!--         <h4 class="sidebar-title">About Us</h4>-->
+<!--         <p class="blog-text">-->
+<!--            You know, being a test pilot isn't always the healthiest business in the world.-->
+<!--            That's one small step for [a] man, one giant leap for mankind.-->
+<!--          </p>-->
+<!--        </div>-->
+       
+        </div>
+        
+      </div><!-- /.container -->
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  <script src="js/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="dist/js/jasny-bootstrap.min.js"></script>
+  </body>
+</html>
