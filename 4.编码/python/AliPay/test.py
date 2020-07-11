@@ -6,7 +6,7 @@ def getURL(user):
     """支付请求过程"""
     # 传递参数初始化支付类
     alipay = AliPay(
-        appid="2016101800715386",  # 设置签约的appid
+        appid="",  # 设置签约的appid
         app_notify_url="https://www.zjyxxn.cn/api/asyn",  # 异步支付通知url
         app_private_key_path=u"keys/应用私钥2048.txt",  # 设置应用私钥
         alipay_public_key_path="keys/沙箱公钥.txt",  # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
@@ -45,7 +45,7 @@ def parseURL(return_url):
 
     # 传递参数初始化支付类
     alipay = AliPay(
-        appid="2016101800715386",  # 设置签约的appid
+        appid="",  # 设置签约的appid
         app_notify_url="https://www.zjyxxn.cn/api/asyn",  # 异步支付通知url
         app_private_key_path=u"keys/应用私钥2048.txt",  # 设置应用私钥
         alipay_public_key_path="keys/沙箱公钥.txt",  # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
