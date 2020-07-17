@@ -12,7 +12,7 @@ import jsonpath
 
 def tencentOCR(src,format):
      try:
-          cred = credential.Credential("AKIDqUBfvwgZCan9Ppq93kEVgcHM4QY24Z9U", "IqSTZUQ7nJSPzsxnOo34rQOFsIlx1tcI")
+          cred = credential.Credential("", "")//api秘钥，在访问管理---->访问秘钥------>api秘钥管理
           httpProfile = HttpProfile()
           httpProfile.endpoint = "ocr.tencentcloudapi.com"
 
