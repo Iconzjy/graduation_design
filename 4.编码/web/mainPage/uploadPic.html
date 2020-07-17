@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+   <title>图片上传</title>
+
+   <!-- Bootstrap core CSS -->
+
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+   <link href="dist/css/jasny-bootstrap.min.css" rel="stylesheet">
+   <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="css/navmenu-reveal.css" rel="stylesheet">
+   <link href="css/style.css" rel="stylesheet">
+   <link href="css/full-slider.css" rel="stylesheet">
+   <link href="css/Icomoon/style.css" rel="stylesheet" type="text/css" />
+   <link href="css/animated-masonry-gallery.css" rel="stylesheet" type="text/css" />
+   <link href="css/lightbox.css" rel="stylesheet" type="text/css" />
+
+
+   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+   <!--[if lt IE 9]>
+   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+   <![endif]-->
+    <script src="mySelfFunc.js"></script>
+   <script type="text/javascript">
+      document.addEventListener('dragover', function(e){
+         e.stopPropagation();
+         e.preventDefault(); // 这里是为了取消浏览器自带的拖拽事件
+      }, false);
+      document.addEventListener('drop', function(e){
+         e.stopPropagation();
+         e.preventDefault();
+         var file = e.dataTransfer.files[0]; // file就是需要传输的文件
+      }, false);
+
+      window.onload = function WebSocketTest() {
+          userName()
+         var ws = new WebSocket("wss://www.zjyxxn.cn/api/");
+         if ("WebSocket" in window) {
+            alert("您的浏览器支持 WebSocket!");
+
+            // 打开一个 web socket
+            ws.onopen = function () {
+               var imgFile = document.getElementById("img11");
+               //  var fr = new FileReader();
+               imgFile.onchange = function(){
+                  var reader = new FileReader();
+                  var img= this.files[0];
+                  reader.readAsArrayBuffer(img);
+                  alert("数据发送中...");
+                  reader.onload = function loaded(evt) {
+                     var blob = evt.target.result;
+                     //发送json数据，包括用户id，文件名，处理类型
+                     u_phone= document.cookie;
+                     u_phone = u_phone.slice(6);
+                     var json;
+                     json="{\"phone\":\""+u_phone+"\",\"img_name\":\""+img.name+"\",\"type\":\"0\"}"
+                     ws.send(json);
+                     //发送二进制表示的文件
+                     ws.send(blob);
+                     ws.onmessage = function (evt) {
+                        var received_msg = evt.data;
+                        alert(received_msg);
+                     };
+
+                     ws.onclose = function () {
+                        // 关闭 websocket
+                        alert("连接已关闭...");
+                     };
+                  }
+               }
+            };
+
+
+         } else {
+            // 浏览器不支持 WebSocket
+            alert("您的浏览器不支持 WebSocket!");
+         }
+      };
+
+
+
+
+   </script>
+
+</head>
+
+<body>
+<div class="bar">
+   <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+   </button>
+</div>
+<!--这个部分是左边功能区域-->
+<div class="navmenu navmenu-default navmenu-fixed-left">
+    <ul class="nav navmenu-nav">
+        <li><a href="index.html">主页</a></li>
+        <li><a href="personalPhotoAlbum.html">个人相册</a></li>
+        <li><a href="dynamicAlbum.html">动态相册</a></li>
+        <li><a href="custom.html">自定义相册</a></li>
+        <li><a href="contact.html">联系我们</a></li>
+        <li><a href="personInfo.html">个人信息</a></li>
+        <li><a href="recycleBin.html">回收站</a></li>
+        <li id="advanPart" href="javascript:void(0)" onclick="isVip()"><a>高级功能部分</a></li>
+
+        <li><a href="../login.html">登录</a></li>
+        <li><a onclick="logOff()">登出</a></li>
+    </ul>
+
+    <a id="welcome-user" class="navmenu-brand" href="#">
+    </a>
+
+    <div class="social">
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        <a href="#"><i class="fa fa-google-plus"></i></a>
+        <a href="#"><i class="fa fa-skype"></i></a>
+    </div>
+    <div class="copyright-text">
+        ©Copyright  可爱一只小小鸟
+        <br>
+        <a href="http://www.zjyxxn.cn" target="_blank">云相册管家</a>
+        <br>
+        <br>
+    </div>
+</div>
+<!--功能向导区域结束-->
+
+<div class="canvas gallery"><br>
+   <h1 class="blog-post-title text-center">上传图片</h1>
+   <span class="title-divider"></span>
+   <input type="file" id="img11"/>
+   <div id="divInfo"></div>
+
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+</script>
+<script type="text/javascript" src="js/isotope.js"></script>
+<script src="dist/js/jasny-bootstrap.min.js"></script>
+<script src="js/lightbox.js"></script>
+<script type="text/javascript" src="js/animated-masonry-gallery.js"></script>
+
+
+</body>
+</html>
