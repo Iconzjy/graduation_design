@@ -30,12 +30,11 @@ namespace zjy {
 
 
     namespace sql {
-    //const std::string host{"139.199.180.227"};
     const std::string host{"localhost"};
     const int port{3306};
     const std::string user{"root"};
     const std::string db{"graduation"};
-    const std::string pwd{"2427072749"};
+    const std::string pwd{""};
     }
 
     namespace pic {
